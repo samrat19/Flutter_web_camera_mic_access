@@ -1,67 +1,101 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
+import 'package:flutter_webrtc/webrtc.dart';
+
+import 'src/loopback_sample.dart';
+import 'src/get_user_media_sample.dart'
+    if (dart.library.js) 'src/get_user_media_sample_web.dart';
+import 'src/get_display_media_sample.dart';
+import 'src/data_channel_sample.dart';
+import 'src/route_item.dart';
 
 void main() {
-  runApp(MyApp());
+  if (WebRTC.platformIsDesktop)
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  runApp(new MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<RouteItem> items;
+
+  @override
+  initState() {
+    super.initState();
+    _initItems();
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  _buildRow(context, item) {
+    return ListBody(children: <Widget>[
+      ListTile(
+        title: Text(item.title),
+        onTap: () => item.push(context),
+        trailing: Icon(Icons.arrow_right),
+      ),
+      Divider()
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+    return new MaterialApp(
+      home: new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Flutter-WebRTC example'),
+          ),
+          body: new ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(0.0),
+              itemCount: items.length,
+              itemBuilder: (context, i) {
+                return _buildRow(context, items[i]);
+              })),
     );
+  }
+
+  _initItems() {
+    items = <RouteItem>[
+      RouteItem(
+          title: 'GetUserMedia',
+          push: (BuildContext context) {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new GetUserMediaSample()));
+          }),
+      RouteItem(
+          title: 'GetDisplayMedia',
+          push: (BuildContext context) {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new GetDisplayMediaSample()));
+          }),
+      RouteItem(
+          title: 'LoopBack Sample',
+          push: (BuildContext context) {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => new LoopBackSample()));
+          }),
+      RouteItem(
+          title: 'DataChannel',
+          push: (BuildContext context) {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new DataChannelSample()));
+          }),
+    ];
   }
 }
