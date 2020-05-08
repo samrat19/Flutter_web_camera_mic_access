@@ -122,57 +122,51 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('GetUserMedia API Test'),
-        actions: _inCalling
-            ? <Widget>[
-                IconButton(
-                  icon: Icon(Icons.camera),
-                  onPressed: _captureFrame,
-                ),
-                IconButton(
-                  icon: Icon(
-                    _isRec ? Icons.stop : Icons.fiber_manual_record,
-                  ),
-                  onPressed: _isRec ? _stopRecording : _startRecording,
-                ),
-              ]
-            : null,
-      ),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            RTCVideoView(_localRenderer),
-            Positioned(
-              bottom: 0.0,
-              child: _inCalling ? Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.camera),
-                    onPressed: _captureFrame,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      _isRec ? Icons.stop : Icons.fiber_manual_record,
-                    ),
-                    onPressed: _isRec ? _stopRecording : _startRecording,
-                  ),
-                ],
-              ) : null
+      body: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width / 50,
+                bottom: MediaQuery.of(context).size.width / 20,
+                left: MediaQuery.of(context).size.width / 30,
+              ),
+              child: RTCVideoView(_localRenderer),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _inCalling ? _hangUp : _makeCall,
-        tooltip: _inCalling ? 'Hangup' : 'Call',
-        child: Icon(
-          _inCalling ? Icons.call_end : Icons.phone,
-        ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width / 8),
+              child: MaterialButton(
+                color:  _inCalling ? Colors.redAccent : Colors.green[800],
+                onPressed: _inCalling ? _hangUp : _makeCall,
+                child: _inCalling
+                    ? Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        'end video',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.0,
+                        ),
+                      ),
+                    )
+                    : Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        'make video',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.0,
+                        ),
+                      ),
+                    ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
