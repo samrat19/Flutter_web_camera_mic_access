@@ -126,13 +126,65 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
         children: [
           Expanded(
             flex: 1,
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.width / 50,
-                bottom: MediaQuery.of(context).size.width / 20,
-                left: MediaQuery.of(context).size.width / 30,
-              ),
-              child: RTCVideoView(_localRenderer),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                RTCVideoView(
+                  _localRenderer,
+                ),
+                Positioned(
+                  bottom: 120.0,
+                  child: _inCalling ?
+                  Container(
+                    width: MediaQuery.of(context).size.width/2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MaterialButton(
+                          color: Colors.green[800],
+                          onPressed: _captureFrame,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Take ScreenShot',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                          )
+                        ),
+
+                        MaterialButton(
+                          color: _isRec ? Colors.redAccent : Colors.green[800],
+                          onPressed: _isRec ? _stopRecording : _startRecording,
+                          child: _isRec
+                              ? Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Stop Recording',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                          )
+                              : Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Start Recording',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ) : Text(''),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -140,29 +192,29 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
             child: Padding(
               padding: EdgeInsets.all(MediaQuery.of(context).size.width / 8),
               child: MaterialButton(
-                color:  _inCalling ? Colors.redAccent : Colors.green[800],
+                color: _inCalling ? Colors.redAccent : Colors.green[800],
                 onPressed: _inCalling ? _hangUp : _makeCall,
                 child: _inCalling
                     ? Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        'end video',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40.0,
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          'end video',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40.0,
+                          ),
                         ),
-                      ),
-                    )
+                      )
                     : Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        'make video',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40.0,
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          'make video',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40.0,
+                          ),
                         ),
                       ),
-                    ),
               ),
             ),
           ),
