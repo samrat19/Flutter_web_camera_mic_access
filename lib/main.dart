@@ -42,29 +42,34 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter-WebRTC example'),
-          ),
-          body: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(0.0),
-              itemCount: items.length,
-              itemBuilder: (context, i) {
-                return _buildRow(context, items[i]);
-              })),
+        body: ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(0.0),
+          itemCount: items.length,
+          itemBuilder: (context, i) {
+            return _buildRow(
+              context,
+              items[i],
+            );
+          },
+        ),
+      ),
     );
   }
 
   _initItems() {
     items = <RouteItem>[
       RouteItem(
-          title: 'GetUserMedia',
-          push: (BuildContext context) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => GetUserMediaSample()));
-          }),
+        title: 'GetUserMedia',
+        push: (BuildContext context) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => GetUserMediaSample(),
+            ),
+          );
+        },
+      ),
     ];
   }
 }
