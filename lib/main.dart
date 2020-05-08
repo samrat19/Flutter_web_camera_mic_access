@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_webrtc/webrtc.dart';
-import 'screens/get_user_media_sample.dart'
+import 'src/get_user_media_sample.dart'
     if (dart.library.js) 'src/get_user_media_sample_web.dart';
-import 'screens/route_item.dart';
+import 'src/route_item.dart';
 
 void main() {
   if (WebRTC.platformIsDesktop)
     debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  runApp(MyApp());
+  runApp(new MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -40,9 +40,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          body: ListView.builder(
+    return new MaterialApp(
+      home: new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Flutter-WebRTC example'),
+          ),
+          body: new ListView.builder(
               shrinkWrap: true,
               padding: const EdgeInsets.all(0.0),
               itemCount: items.length,
@@ -59,8 +62,9 @@ class _MyAppState extends State<MyApp> {
           push: (BuildContext context) {
             Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => GetUserMediaSample()));
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new GetUserMediaSample()));
           }),
     ];
   }
