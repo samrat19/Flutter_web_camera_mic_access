@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_webrtc/webrtc.dart';
-import 'src/get_user_media_sample.dart'
+import 'screens/get_user_media_sample.dart'
     if (dart.library.js) 'src/get_user_media_sample_web.dart';
-import 'src/route_item.dart';
+import 'screens/route_item.dart';
 
 void main() {
   if (WebRTC.platformIsDesktop)
