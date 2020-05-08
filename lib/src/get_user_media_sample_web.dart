@@ -139,20 +139,14 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
               ]
             : null,
       ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return Center(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: RTCVideoView(_localRenderer),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-              ),
-            ),
-          );
-        },
+      body: Container(
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: RTCVideoView(_localRenderer),
+        decoration: BoxDecoration(
+          color: Colors.black54,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _inCalling ? _hangUp : _makeCall,
