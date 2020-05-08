@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/webrtc.dart';
 import 'package:path_provider/path_provider.dart';
 
-class GetUserMediaSample extends StatefulWidget {
+class WebPortalScreen extends StatefulWidget {
   static String tag = 'get_usermedia_sample';
 
   @override
-  _GetUserMediaSampleState createState() => _GetUserMediaSampleState();
+  _WebPortalScreenState createState() => _WebPortalScreenState();
 }
 
-class _GetUserMediaSampleState extends State<GetUserMediaSample> {
+class _WebPortalScreenState extends State<WebPortalScreen> {
   MediaStream _localStream;
   final _localRenderer = RTCVideoRenderer();
   bool _inCalling = false;

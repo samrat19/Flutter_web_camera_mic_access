@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_webrtc/webrtc.dart';
-import 'src/get_user_media_sample.dart'
-    if (dart.library.js) 'src/get_user_media_sample_web.dart';
+import 'src/web_portal_screen.dart'
+    if (dart.library.js) 'src/web_portal_screen_web.dart';
 
 void main() {
   if (WebRTC.platformIsDesktop)
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: GetUserMediaSample(),
+      home: WebPortalScreen(),
     );
   }
 }
