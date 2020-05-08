@@ -198,7 +198,7 @@ class _WebPortalScreenState extends State<WebPortalScreen> {
                     ? Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          'end video',
+                          'stop video',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40.0,
@@ -208,7 +208,7 @@ class _WebPortalScreenState extends State<WebPortalScreen> {
                     : Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          'make video',
+                          'start video',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40.0,
