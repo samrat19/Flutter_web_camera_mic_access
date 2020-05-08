@@ -10,12 +10,12 @@ import 'src/route_item.dart';
 void main() {
   if (WebRTC.platformIsDesktop)
     debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -40,12 +40,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Flutter-WebRTC example'),
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Flutter-WebRTC example'),
           ),
-          body: new ListView.builder(
+          body: ListView.builder(
               shrinkWrap: true,
               padding: const EdgeInsets.all(0.0),
               itemCount: items.length,
@@ -62,9 +62,8 @@ class _MyAppState extends State<MyApp> {
           push: (BuildContext context) {
             Navigator.push(
                 context,
-                new MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        new GetUserMediaSample()));
+                MaterialPageRoute(
+                    builder: (BuildContext context) => GetUserMediaSample()));
           }),
     ];
   }
