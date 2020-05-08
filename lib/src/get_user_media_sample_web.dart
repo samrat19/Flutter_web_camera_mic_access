@@ -143,9 +143,28 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: RTCVideoView(_localRenderer),
-        decoration: BoxDecoration(
-          color: Colors.black54,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            RTCVideoView(_localRenderer),
+            Positioned(
+              bottom: 0.0,
+              child: _inCalling ? Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.camera),
+                    onPressed: _captureFrame,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      _isRec ? Icons.stop : Icons.fiber_manual_record,
+                    ),
+                    onPressed: _isRec ? _stopRecording : _startRecording,
+                  ),
+                ],
+              ) : null
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
